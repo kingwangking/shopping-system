@@ -1,0 +1,44 @@
+﻿sequenceDiagram
+    participant Client as Client
+    participant Controller as Web Controller
+    participant App as Application Use Case
+    participant Domain as Domain Model
+    participant Repo as Repository
+    participant DB as Database
+
+    rect rgb(235, 248, 255)
+    note over Client,DB: 记录订单（CreateOrder）
+    Client->>Controller: POST /orders
+    Controller->>App: createOrder(command)
+    App->>Domain: 创建并校验订单规则
+    App->>Repo: save(order)
+    Repo->>DB: INSERT order
+    DB-->>Repo: ok
+    Repo-->>App: persisted order
+    App-->>Controller: result dto
+    Controller-->>Client: 201 Created
+    end
+
+    rect rgb(245, 255, 240)
+    note over Client,DB: 查询订单（QueryOrders）
+    Client->>Controller: GET /orders?conditions
+    Controller->>App: queryOrders(query)
+    App->>Repo: findByConditions(query)
+    Repo->>DB: SELECT ...
+    DB-->>Repo: order list
+    Repo-->>App: domain objects
+    App-->>Controller: list dto
+    Controller-->>Client: 200 OK
+    end
+
+    rect rgb(255, 248, 235)
+    note over Client,DB: 统计订单（GetOrderStatistics）
+    Client->>Controller: GET /orders/statistics
+    Controller->>App: getOrderStatistics(query)
+    App->>Repo: aggregate(query)
+    Repo->>DB: SUM/COUNT ...
+    DB-->>Repo: statistics rows
+    Repo-->>App: statistics data
+    App-->>Controller: statistics dto
+    Controller-->>Client: 200 OK
+    end

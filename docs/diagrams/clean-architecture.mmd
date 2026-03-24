@@ -1,0 +1,53 @@
+﻿flowchart TB
+    U[用户 / 管理员] --> API[Web API]
+
+    subgraph I[Interfaces Layer]
+        C[Controllers]
+        R[Routes]
+        S[Schemas DTO]
+        P[Presenters]
+    end
+
+    subgraph A[Application Layer]
+        UC1[CreateOrder Use Case]
+        UC2[QueryOrders Use Case]
+        UC3[GetOrderStatistics Use Case]
+    end
+
+    subgraph D[Domain Layer]
+        E[Order Entity]
+        VO[Value Objects]
+        DS[Domain Services]
+        RI[Repository Interfaces]
+    end
+
+    subgraph F[Infrastructure Layer]
+        RP[Repository Implementations]
+        DB[(Database)]
+        CFG[Config]
+        LOG[Logging]
+    end
+
+    API --> C
+    C --> R
+    C --> S
+    C --> UC1
+    C --> UC2
+    C --> UC3
+
+    UC1 --> E
+    UC2 --> E
+    UC3 --> DS
+    UC1 --> RI
+    UC2 --> RI
+    UC3 --> RI
+
+    RP -.implements.-> RI
+    RP --> DB
+    UC1 --> RP
+    UC2 --> RP
+    UC3 --> RP
+
+    C --> P
+    RP --> LOG
+    C --> CFG

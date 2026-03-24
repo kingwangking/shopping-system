@@ -1,0 +1,28 @@
+{
+  "name": "shopping-system",
+  "version": "1.0.0",
+  "description": "开发一个最简单的订单系统学习和实践后端开发",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "diagram": "mmdc -p docs/diagrams/puppeteer-config.json",
+    "diagram:all": "npm run diagram -- -i docs/diagrams/clean-architecture.mmd -o docs/diagrams/clean-architecture.svg && npm run diagram -- -i docs/diagrams/order-core-flow.mmd -o docs/diagrams/order-core-flow.svg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kingwangking/shopping-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kingwangking/shopping-system/issues"
+  },
+  "homepage": "https://github.com/kingwangking/shopping-system#readme",
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.12.0"
+  }
+}
